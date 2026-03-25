@@ -65,3 +65,17 @@ services:
       CLUSTER_ID: "2UKPPoqNTPezeassrAogQw"
     volumes:
       - ./kafka-data-3:/var/lib/kafka/data
+  minio:
+    image: minio/minio
+    container_name: minio
+    networks:
+      - kafka-network
+    ports:
+      - "9000:9000"    # API Port
+      - "9001:9001"    # Web Console Port
+    environment:
+      MINIO_ROOT_USER: test
+      MINIO_ROOT_PASSWORD: beauthpcc
+    volumes:
+      - ./minio-data:/data
+    command: server /data --console-address ":9001"
